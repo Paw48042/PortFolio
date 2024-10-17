@@ -1,0 +1,12 @@
+{% extends "military_map/layout.html" %}
+{% load static %}
+{% block title %}Not Found{% endblock %}
+{% block body %}
+<div class="position-absolute top-50 start-50 translate-middle">
+    <img src="{% static military_map/not_found.png %}" class = "img-fluid" alt="404 not found">
+</div>
+    <footer class="text-center">
+        <p>&copy; 2024 MapCommand. All rights reserved.</p>
+    </footer>
+</div>
+{% endblock %}

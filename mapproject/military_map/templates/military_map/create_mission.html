@@ -1,0 +1,17 @@
+
+<!-- templates/user_update_form.html -->
+{% extends "military_map/layout.html" %}
+{% load static %}
+{% block body %}
+
+  <div class="container">
+  <div>
+    <h2 class="display-4">Create Mission</h2>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Create Mission" class="btn btn-primary">
+  </form>
+  </div>
+{% endblock %}

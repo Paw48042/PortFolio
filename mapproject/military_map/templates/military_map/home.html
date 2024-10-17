@@ -1,0 +1,61 @@
+{% extends "military_map/layout.html" %}
+{% load static %}
+{% block title %}นวัตกรรมหน่วย: ร.29 พัน.1{% endblock %}
+{% block body %}
+<div class="jumbotron text-center">
+    <h1 class="display-4"> MapCommand</h1>
+    <p class="lead">Real-time Tactical Mapping and Coordination</p>
+    <hr class="my-4">
+    <p>MapCommand allows users to draw on a map and see the real-time locations of others in the same map room. Perfect for tactical coordination and situational awareness.</p>
+    <p>MapCommand สร้างขึ้นเพื่อใช้สำหรับการปฏิบัติยุทธวิธีในระดับ หมวด ถึงกองร้อย เป็นเครื่องมือสำหรับผู้ปฏิบัติในทุกระดับ</p>
+    <a href="{% url 'instruction' %}"> คลิกเพื่อดูวิธีการใช้งาน</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>Real-Time Mapping</h2>
+            <img src="{% static 'military_map/pic1.png' %}" class="img-fluid" alt="Real-Time Mapping">
+            <p>Draw and annotate maps with ease. See changes as they happen, in real-time.</p>
+            <p>ผู้บังคับหน่วยสามารถวาดกำหนดเส้นแนวขั้น หรือ พื้นที่ลงบนแผนที่ และทุกคนสามารถเห็นได้พร้อมกัน </p>
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <ul class = 'list-group'>
+                        <li>ทุกคนเห็นแนวขั้นพร้อมกัน</li>
+                        <li>สามารถปฏิบัติภารกิจที่ซับซ้อนได้ เช่น การตีโอบ ตลบ</li>
+                        <li>ช่วยลดโอกาสในการเกิด Friendly Fire (ยิงฝ่ายเดียวกัน)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>User Location Tracking</h2>
+            <img src="{% static 'military_map/pic2.png' %}" class="img-fluid" alt="User Location Tracking">
+            <p>Monitor the positions of your team members in the same map room, enhancing coordination and awareness.</p>
+            <div class="row">
+                <div class = "col-md-12 d-flex justify-content-center">
+                    <ul>
+                        <li>ผบ.ชา สามารถสังเกตุการณ์การปฏิบัติได้จากระยะไกล ประเมินสถานการณ์การฝึก-รบ โดยไม่จำเป็นต้องอยู่บนเนินคนดู</li>
+                        <li>ใช้ร่วมกับวิทยุ และโดรนตรวจการ เพื่อสร้างระบบ C4ISR </li>
+                        <li>ระบบการระบุพิกัดที่มีความแม่นยำ คลาดเคลื่อนในระยะ 5 - 15 เมตร</li>
+                        <li>ใช้งานบน Website แค่มือถือเครื่องเดียวก็สามารถปฏิบัติได้</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>Secure and Reliable</h2>
+            <img src="{% static 'military_map/นวัตกรรม.png' %}" class="img-fluid" alt="Secure and Reliable">
+            <p>Built with Django, MapCommand ensures your data is secure and accessible when you need it most.</p>
+        </div>
+    </div>
+    <hr>
+    <footer class="text-center">
+        <p>&copy; 2024 MapCommand. All rights reserved.</p>
+    </footer>
+</div>
+{% endblock %}

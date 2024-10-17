@@ -1,0 +1,41 @@
+{% extends "military_map/layout.html" %}
+{% load static %}
+{% block title %}Mission - ภารกิจ{% endblock %}
+{% block body %}
+
+<!--Card element-->
+
+  {% for mission in object_list %}
+    <div class="p-3 m-3">
+        <div class="card">
+            <div class="card-header">
+              Owner : {{ mission.createBy.first_name }} {{mission.createBy.last_name}}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ mission.name }}</h5>
+              {{mission.detail}}
+              <hr>
+              <a href="{% url 'join_mission' mission.id %}" class="btn btn-primary">Enter mission</a>
+              {% if mission.createBy.id == user.id %}
+              <a href="{% url 'delete_mission' mission.id %}" class="btn btn-danger">Delete mission</a>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+  {% empty %}
+    <div class="p-3 m-3">
+      <div class="card">
+          <div class="card-header">
+            Message from system
+          </div>
+
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">There's no mission to join yet. </p>
+          </div>
+      </div>
+    </div>
+  {% endfor %}
+
+
+{% endblock %}

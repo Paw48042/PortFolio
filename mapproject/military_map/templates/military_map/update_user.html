@@ -1,0 +1,29 @@
+
+<!-- templates/user_update_form.html -->
+{% extends "military_map/layout.html" %}
+{% load form_tags %}  <!-- Load the custom template filter -->
+{% load static %}
+{% block title %}Update User แก้ไขข้อมูลผู้ใช้งาน{% endblock %}
+{% block body %}
+<div class="container">
+  <h2 class="display-4">Update User - แก้ไขข้อมูลผู้ใช้งาน</h2>
+  <form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <fieldset disabled="disabled" id = "customFieldset">
+    <div class="mb-3">
+      {{ form.email|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+      {{ form.first_name|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+      {{ form.last_name|add_class:"form-control" }}
+    </div>
+  </fieldset>
+
+    <button type="button" class="btn btn-warning" id = "makeChange">Edit</button>
+    <button type="submit" class="btn btn-primary" id = "Update" style="display: none;" action = "{% url 'update_profile' user.id %}">Update</button>
+  </form>
+</div>
+<script src = "{% static 'military_map/edit_user_profile.js' %}"></script>
+{% endblock %}

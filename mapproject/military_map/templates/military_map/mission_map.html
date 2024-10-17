@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- MGRS calculator-->
+    <script src="https://cdn.jsdelivr.net/npm/mgrs@2.0.0/dist/mgrs.min.js"></script>
+    <!-- Bootstrap5-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Leaflet part-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- Leaflet Draw CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Leaflet Draw JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <link href="{% static 'military_map/style.css' %}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <title>Interactive Map - แผนที่</title>
+
+</head>
+<body>
+    <!--navbar part-->
+    <div class="container-fluid">
+    <ul class="nav fixed-top bg-body-tertiary">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class = "nav-item">
+                <a class = "nav-link" href="{% url 'mission'%}">Mission</a>
+            </li>
+            <li class = "nav-item">
+                <a class="nav-link" href = "{% url 'create_mission'%}">Create Mission</a>
+            </li>
+            <li class = "nav-item">
+                <a class="nav-link" href = "{% url 'update_profile' user.id %}">Edit Profile</a>
+            </li>
+            <li class="nav-item">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link">Logout</button>
+                </form>
+            </li>
+            <li class="nav-item" id = "roomname" name = "{{object.id}}">
+               <p class="nav-link" id = "mission_owner" name = "{{ object.createBy.username}}"> Mission : {{ object.name }}</p>
+            </li>
+            <li class = "nav-item">
+                <div class="nav-link" id = "user_id" name = "{{user.username}}" data-full-name = "{{user.first_name}} {{user.last_name}}">
+                    {% if user.is_authenticated %}
+                        Signed in as <strong>{{ user.username }}</strong>.
+                    {% else %}
+                        Not signed in.
+                    {% endif %}
+                </div>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+        {% endif %}
+    </ul>
+    
+    </div>
+    <!--navbar part-->
+    <div id="map"></div>
+    <!-- Modal Form -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body">
+                <form id="shapeForm">
+                    <div class="form-group">
+                        <label for="shapeName">Shape Name:</label>
+                        <input type="text" class="form-control" id="shapeName" name="shapeName">
+                    </div>
+                    <div class="form-group">
+                        <label for="shapeColor">Color:</label>
+                        <input class="jscolor form-control" id="shapeColor" name="shapeColor">
+                    </div>
+                    <!--
+                    <div class="form-group">
+                        <label for="fillColor">Fill Color (If fill color is white. It's means no fill color):</label>
+                        <input class="jscolor form-control" id="fillColor" name="fillColor">
+                    </div>
+                    -->
+                    <div class = 'modal-footer'>
+                    <button type="button" id="startDrawing" class="btn btn-primary">Start Drawing</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</body>
+<script type = "module" src = "{% static 'military_map/main.js'%}"></script>
+</html>
